@@ -28,8 +28,6 @@ RUN set -x \
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 
-WORKDIR /usr/share/elasticsearch
-
 RUN set -ex \
 	&& for path in \
 		./data \
@@ -42,6 +40,53 @@ RUN set -ex \
 	done
 
 COPY config ./config
+
+RUN \
+	plugin install mobz/elasticsearch-head \
+	&& rm -rf /tmp/*
+
+# install maven
+RUN \
+	cd /usr/share \
+	&& wget -c http://mirrors.cnnic.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip \
+	&& unzip apache-maven-3.3.9-bin.zip \
+	&& rm /usr/share/apache-maven-3.3.9-bin.zip
+
+ENV PATH /usr/share/apache-maven-3.3.9/bin:$PATH
+
+# install elasticsearch-analysis-ik
+RUN \
+	cd /usr/share/elasticsearch/plugins \
+	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v1.9.5 \
+	&& unzip ik.zip \
+	&& rm ik.zip \
+	&& cd elasticsearch-analysis-ik-1.9.5 \
+	&& mvn clean \
+	&& mvn compile \
+	&& mvn package \
+	&& cp target/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins \
+	&& cd /usr/share/elasticsearch/plugins \
+	&& rm -rf elasticsearch-analysis-ik-1.9.5 \
+	&& unzip elasticsearch-analysis-ik-*.zip \
+	&& rm elasticsearch-analysis-ik-*.zip
+
+# install elasticsearch-analysis-pinyin
+RUN \
+	cd /usr/share/elasticsearch/plugins \
+	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v1.7.5 \
+	&& unzip pinyin.zip \
+	&& rm pinyin.zip \
+	&& cd elasticsearch-analysis-pinyin-1.7.5 \
+	&& mvn clean \
+	&& mvn compile \
+	&& mvn package \
+	&& cp target/elasticsearch-analysis-pinyin-*.zip /usr/share/elasticsearch/plugins \
+	&& cd /usr/share/elasticsearch/plugins \
+	&& rm -rf elasticsearch-analysis-pinyin-1.7.5 \
+	&& unzip elasticsearch-analysis-pinyin-*.zip \
+	&& rm elasticsearch-analysis-pinyin-*.zip
+
+WORKDIR /usr/share/elasticsearch
 
 VOLUME /usr/share/elasticsearch/data
 
