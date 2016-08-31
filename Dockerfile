@@ -64,7 +64,7 @@ RUN \
 	&& mvn clean \
 	&& mvn compile \
 	&& mvn package \
-	&& cp target/releases/elasticsearch-analysis-ik-*.jar /usr/share/elasticsearch/plugins \
+	&& cp target/releases/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins \
 	&& cd /usr/share/elasticsearch/plugins \
 	&& rm -rf elasticsearch-analysis-ik-1.9.5 \
 	&& unzip elasticsearch-analysis-ik-*.zip \
@@ -80,7 +80,7 @@ RUN \
 	&& mvn clean \
 	&& mvn compile \
 	&& mvn package \
-	&& cp target/releases/elasticsearch-analysis-pinyin-*.jar /usr/share/elasticsearch/plugins \
+	&& cp target/releases/elasticsearch-analysis-pinyin-*.zip /usr/share/elasticsearch/plugins \
 	&& cd /usr/share/elasticsearch/plugins \
 	&& rm -rf elasticsearch-analysis-pinyin-1.7.5 \
 	&& unzip elasticsearch-analysis-pinyin-*.zip \
