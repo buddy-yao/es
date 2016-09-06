@@ -68,6 +68,7 @@ RUN \
 	&& mvn package \
 	&& mkdir /usr/share/elasticsearch/plugins/ik \
 	&& cp target/releases/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins/ik \
+	&& cd /usr/share/elasticsearch/plugins \
 	&& rm -rf elasticsearch-analysis-ik-1.9.5 \
 	&& cd /usr/share/elasticsearch/plugins/ik \
 	&& unzip elasticsearch-analysis-ik-*.zip \
