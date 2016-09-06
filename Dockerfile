@@ -28,6 +28,8 @@ RUN set -x \
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 
+WORKDIR /usr/share/elasticsearch
+
 RUN set -ex \
 	&& for path in \
 		./data \
@@ -53,8 +55,6 @@ RUN \
 	&& rm /usr/share/apache-maven-3.3.9-bin.zip
 
 ENV PATH /usr/share/apache-maven-3.3.9/bin:$PATH
-
-WORKDIR /usr/share/elasticsearch
 
 # install elasticsearch-analysis-ik
 RUN \
