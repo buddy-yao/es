@@ -55,37 +55,39 @@ RUN \
 ENV PATH /usr/share/apache-maven-3.3.9/bin:$PATH
 
 # install elasticsearch-analysis-ik
-# RUN \
-# 	cd /usr/share/elasticsearch/plugins \
-# 	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v1.9.5 \
-# 	&& unzip ik.zip \
-# 	&& rm ik.zip \
-# 	&& cd elasticsearch-analysis-ik-1.9.5 \
-# 	&& mvn clean \
-# 	&& mvn compile \
-# 	&& mvn package \
-# 	&& mkdir /usr/share/elasticsearch/plugins/ik \
-# 	&& cp target/releases/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins/ik \
-# 	&& cd /usr/share/elasticsearch/plugins/ik \
-# 	&& rm -rf elasticsearch-analysis-ik-1.9.5 \
-# 	&& unzip elasticsearch-analysis-ik-*.zip \
-# 	&& rm elasticsearch-analysis-ik-*.zip
+RUN \
+	cd /usr/share/elasticsearch/plugins \
+	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v1.9.5 \
+	&& unzip ik.zip \
+	&& rm ik.zip \
+	&& cd elasticsearch-analysis-ik-1.9.5 \
+	&& mvn clean \
+	&& mvn compile \
+	&& mvn package \
+	&& mkdir /usr/share/elasticsearch/plugins/ik \
+	&& cp target/releases/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins/ik \
+	&& rm -rf elasticsearch-analysis-ik-1.9.5 \
+	&& cd /usr/share/elasticsearch/plugins/ik \
+	&& unzip elasticsearch-analysis-ik-*.zip \
+	&& rm elasticsearch-analysis-ik-*.zip
 
 # install elasticsearch-analysis-pinyin
-# RUN \
-# 	cd /usr/share/elasticsearch/plugins \
-# 	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v1.7.5 \
-# 	&& unzip pinyin.zip \
-# 	&& rm pinyin.zip \
-# 	&& cd elasticsearch-analysis-pinyin-1.7.5 \
-# 	&& mvn clean \
-# 	&& mvn compile \
-# 	&& mvn package \
-# 	&& cp target/releases/elasticsearch-analysis-pinyin-*.jar /usr/share/elasticsearch/plugins \
-# 	&& cd /usr/share/elasticsearch/plugins \
-# 	&& rm -rf elasticsearch-analysis-pinyin-1.7.5 \
-# 	&& unzip elasticsearch-analysis-pinyin-*.zip \
-# 	&& rm elasticsearch-analysis-pinyin-*.zip
+RUN \
+	cd /usr/share/elasticsearch/plugins \
+	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v1.7.5 \
+	&& unzip pinyin.zip \
+	&& rm pinyin.zip \
+	&& cd elasticsearch-analysis-pinyin-1.7.5 \
+	&& mvn clean \
+	&& mvn compile \
+	&& mvn package \
+  	&& mkdir /usr/share/elasticsearch/plugins/pinyin \
+	&& cp target/releases/elasticsearch-analysis-pinyin-*.zip /usr/share/elasticsearch/plugins/pinyin \
+	&& cd /usr/share/elasticsearch/plugins \
+	&& rm -rf elasticsearch-analysis-pinyin-1.7.5 \
+  	&& cd /usr/share/elasticsearch/plugins/pinyin \
+	&& unzip elasticsearch-analysis-pinyin-*.zip \
+	&& rm elasticsearch-analysis-pinyin-*.zip
 
 WORKDIR /usr/share/elasticsearch
 
