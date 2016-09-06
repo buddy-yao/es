@@ -54,6 +54,8 @@ RUN \
 
 ENV PATH /usr/share/apache-maven-3.3.9/bin:$PATH
 
+WORKDIR /usr/share/elasticsearch
+
 # install elasticsearch-analysis-ik
 RUN \
 	cd /usr/share/elasticsearch/plugins \
@@ -88,8 +90,6 @@ RUN \
   	&& cd /usr/share/elasticsearch/plugins/pinyin \
 	&& unzip elasticsearch-analysis-pinyin-*.zip \
 	&& rm elasticsearch-analysis-pinyin-*.zip
-
-WORKDIR /usr/share/elasticsearch
 
 VOLUME /usr/share/elasticsearch/data
 
