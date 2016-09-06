@@ -1,0 +1,11 @@
+version: '2'
+services: 
+  es:
+    build: .
+    volumes:
+      - ./data:/usr/share/elasticsearch/data
+      - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - "9200:9200"
+      - "9300:9300"
