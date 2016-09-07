@@ -16,7 +16,7 @@ RUN set -x \
 # https://packages.elasticsearch.org/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
-ENV ELASTICSEARCH_VERSION 2.3.5
+ENV ELASTICSEARCH_VERSION 2.4.0
 ENV ELASTICSEARCH_REPO_BASE http://packages.elasticsearch.org/elasticsearch/2.x/debian
 
 RUN echo "deb $ELASTICSEARCH_REPO_BASE stable main" > /etc/apt/sources.list.d/elasticsearch.list
@@ -59,17 +59,17 @@ ENV PATH /usr/share/apache-maven-3.3.9/bin:$PATH
 # install elasticsearch-analysis-ik
 RUN \
 	cd /usr/share/elasticsearch/plugins \
-	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v1.9.5 \
+	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v1.10.0 \
 	&& unzip ik.zip \
 	&& rm ik.zip \
-	&& cd elasticsearch-analysis-ik-1.9.5 \
+	&& cd elasticsearch-analysis-ik-1.10.0 \
 	&& mvn clean \
 	&& mvn compile \
 	&& mvn package \
 	&& mkdir /usr/share/elasticsearch/plugins/ik \
 	&& cp target/releases/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins/ik \
 	&& cd /usr/share/elasticsearch/plugins \
-	&& rm -rf elasticsearch-analysis-ik-1.9.5 \
+	&& rm -rf elasticsearch-analysis-ik-1.10.0 \
 	&& cd /usr/share/elasticsearch/plugins/ik \
 	&& unzip elasticsearch-analysis-ik-*.zip \
 	&& rm elasticsearch-analysis-ik-*.zip
@@ -77,17 +77,17 @@ RUN \
 # install elasticsearch-analysis-pinyin
 RUN \
 	cd /usr/share/elasticsearch/plugins \
-	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v1.7.5 \
+	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v1.8.0 \
 	&& unzip pinyin.zip \
 	&& rm pinyin.zip \
-	&& cd elasticsearch-analysis-pinyin-1.7.5 \
+	&& cd elasticsearch-analysis-pinyin-1.8.0 \
 	&& mvn clean \
 	&& mvn compile \
 	&& mvn package \
   	&& mkdir /usr/share/elasticsearch/plugins/pinyin \
 	&& cp target/releases/elasticsearch-analysis-pinyin-*.zip /usr/share/elasticsearch/plugins/pinyin \
 	&& cd /usr/share/elasticsearch/plugins \
-	&& rm -rf elasticsearch-analysis-pinyin-1.7.5 \
+	&& rm -rf elasticsearch-analysis-pinyin-1.8.0 \
   	&& cd /usr/share/elasticsearch/plugins/pinyin \
 	&& unzip elasticsearch-analysis-pinyin-*.zip \
 	&& rm elasticsearch-analysis-pinyin-*.zip
