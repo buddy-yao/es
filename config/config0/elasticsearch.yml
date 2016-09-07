@@ -1,6 +1,6 @@
 cluster.name: xmq_es
 node.name: blance
-node.master: false
+node.master: true
 node.data: false
 index.refresh_interval: 5s
 network.host: 0.0.0.0
