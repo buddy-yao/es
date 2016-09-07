@@ -9,3 +9,8 @@ transport.tcp.port: 9300
 http.port: 9200
 discovery.zen.ping.multicast.enabled: false
 discovery.zen.ping.unicast.hosts: 172.21.0.2:9300
+script.inline: true
+script.indexed: true
+script.file: true
+script.update: true
+script.search: true

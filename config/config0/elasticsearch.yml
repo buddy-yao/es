@@ -10,3 +10,8 @@ index.refresh_interval: 5s
 # path.data: /usr/share/elasticsearch/data
 # path.logs: /usr/share/elasticsearch/logs
 discovery.zen.ping.multicast.enabled: false
+script.inline: true
+script.indexed: true
+script.file: true
+script.update: true
+script.search: true
