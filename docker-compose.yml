@@ -6,37 +6,64 @@ services:
       # - ./data:/usr/share/elasticsearch/data
       - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
       - ./config/config0/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./docker-entrypoint.sh:/docker-entrypoint.sh
     ports:
       - "9200:9200"
       # - "9300:9300"
     restart: always
+    networks:
+        es_network:
+          ipv4_address: 172.21.0.2
   es1:
       image: yk0602/elasticsearch:v2.4.0
       volumes:
         # - ./data:/usr/share/elasticsearch/data
         - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
         - ./config/config1/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ./docker-entrypoint.sh:/docker-entrypoint.sh
       ports:
         - "9201:9200"
         # - "9300:9300"
       restart: always
+      networks:
+        es_network:
+          ipv4_address: 172.21.0.3
   es2:
       image: yk0602/elasticsearch:v2.4.0
       volumes:
         # - ./data:/usr/share/elasticsearch/data
         - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
         - ./config/config2/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ./docker-entrypoint.sh:/docker-entrypoint.sh
       ports:
         - "9202:9200"
         # - "9300:9300"
       restart: always
+      networks:
+        es_network:
+          ipv4_address: 172.21.0.4
   es3:
       image: yk0602/elasticsearch:v2.4.0
       volumes:
         # - ./data:/usr/share/elasticsearch/data
         - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
         - ./config/config3/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ./docker-entrypoint.sh:/docker-entrypoint.sh
       ports:
         - "9203:9200"
         # - "9300:9300"
       restart: always
+      networks:
+        es_network:
+          ipv4_address: 172.21.0.5
+
+networks:
+  es_network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.21.0.0/16
+        gateway: 172.21.0.1

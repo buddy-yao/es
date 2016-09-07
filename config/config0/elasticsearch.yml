@@ -1,9 +1,12 @@
 cluster.name: xmq_es
 node.name: blance
-node.master: true
+node.master: false
 node.data: false
-index.refresh_interval: 5s
+network.publish_host: 172.21.0.2
+transport.tcp.port: 9300
 network.host: 0.0.0.0
-# network.publish_host:
-# transport.tcp.port:9300
 http.port: 9200
+index.refresh_interval: 5s
+# path.data: /usr/share/elasticsearch/data
+# path.logs: /usr/share/elasticsearch/logs
+discovery.zen.ping.multicast.enabled: false
