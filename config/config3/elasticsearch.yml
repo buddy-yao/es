@@ -1,0 +1,9 @@
+cluster.name: xmq_es
+node.name: node1
+node.master: false
+node.data: true
+index.refresh_interval: 5s
+network.host: 0.0.0.0
+# network.publish_host:
+# transport.tcp.port:9300
+http.port: 9200

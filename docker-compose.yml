@@ -5,7 +5,7 @@ services:
     volumes:
       # - ./data:/usr/share/elasticsearch/data
       - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
-      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./config/config0/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - "9200:9200"
       # - "9300:9300"
@@ -15,7 +15,7 @@ services:
       volumes:
         # - ./data:/usr/share/elasticsearch/data
         - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
-        - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ./config/config1/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       ports:
         - "9201:9200"
         # - "9300:9300"
@@ -25,7 +25,7 @@ services:
       volumes:
         # - ./data:/usr/share/elasticsearch/data
         - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
-        - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ./config/config2/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       ports:
         - "9202:9200"
         # - "9300:9300"
@@ -35,7 +35,7 @@ services:
       volumes:
         # - ./data:/usr/share/elasticsearch/data
         - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
-        - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ./config/config3/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       ports:
         - "9203:9200"
         # - "9300:9300"
