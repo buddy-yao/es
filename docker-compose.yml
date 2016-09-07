@@ -1,11 +1,42 @@
 version: '2'
 services: 
-  es:
-    build: .
+  es0:
+    image: yk0602/elasticsearch:v2.4.0
     volumes:
-      - ./data:/usr/share/elasticsearch/data
+      # - ./data:/usr/share/elasticsearch/data
       - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
       - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - "9200:9200"
-      - "9300:9300"
+      # - "9300:9300"
+    restart: always
+  es1:
+      image: yk0602/elasticsearch:v2.4.0
+      volumes:
+        # - ./data:/usr/share/elasticsearch/data
+        - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
+        - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9201:9200"
+        # - "9300:9300"
+      restart: always
+  es2:
+      image: yk0602/elasticsearch:v2.4.0
+      volumes:
+        # - ./data:/usr/share/elasticsearch/data
+        - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
+        - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9202:9200"
+        # - "9300:9300"
+      restart: always
+  es3:
+      image: yk0602/elasticsearch:v2.4.0
+      volumes:
+        # - ./data:/usr/share/elasticsearch/data
+        - ./config/logging.yml:/usr/share/elasticsearch/config/logging.yml
+        - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9203:9200"
+        # - "9300:9300"
+      restart: always
