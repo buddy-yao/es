@@ -12,14 +12,16 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
 
-# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html
-# https://packages.elasticsearch.org/GPG-KEY-elasticsearch
+# https://artifacts.elastic.co/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
-ENV ELASTICSEARCH_VERSION 2.4.0
-ENV ELASTICSEARCH_REPO_BASE http://packages.elasticsearch.org/elasticsearch/2.x/debian
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html
+# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/deb.html
+RUN set -x \
+	&& apt-get update && apt-get install -y --no-install-recommends apt-transport-https && rm -rf /var/lib/apt/lists/* \
+	&& echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/elasticsearch.list
 
-RUN echo "deb $ELASTICSEARCH_REPO_BASE stable main" > /etc/apt/sources.list.d/elasticsearch.list
+ENV ELASTICSEARCH_VERSION 5.0.1
 
 RUN set -x \
 	&& apt-get update \
@@ -43,10 +45,6 @@ RUN set -ex \
 
 COPY config ./config
 
-RUN \
-	plugin install mobz/elasticsearch-head \
-	&& rm -rf /tmp/*
-
 # install maven
 RUN \
 	cd /usr/share \
@@ -59,17 +57,17 @@ ENV PATH /usr/share/apache-maven-3.3.9/bin:$PATH
 # install elasticsearch-analysis-ik
 RUN \
 	cd /usr/share/elasticsearch/plugins \
-	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v1.10.0 \
+	&& wget -c -O ik.zip https://codeload.github.com/medcl/elasticsearch-analysis-ik/zip/v5.0.1 \
 	&& unzip ik.zip \
 	&& rm ik.zip \
-	&& cd elasticsearch-analysis-ik-1.10.0 \
+	&& cd elasticsearch-analysis-ik-5.0.1 \
 	&& mvn clean \
 	&& mvn compile \
 	&& mvn package \
 	&& mkdir /usr/share/elasticsearch/plugins/ik \
 	&& cp target/releases/elasticsearch-analysis-ik-*.zip /usr/share/elasticsearch/plugins/ik \
 	&& cd /usr/share/elasticsearch/plugins \
-	&& rm -rf elasticsearch-analysis-ik-1.10.0 \
+	&& rm -rf elasticsearch-analysis-ik-5.0.1 \
 	&& cd /usr/share/elasticsearch/plugins/ik \
 	&& unzip elasticsearch-analysis-ik-*.zip \
 	&& rm elasticsearch-analysis-ik-*.zip
@@ -77,17 +75,17 @@ RUN \
 # install elasticsearch-analysis-pinyin
 RUN \
 	cd /usr/share/elasticsearch/plugins \
-	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v1.8.0 \
+	&& wget -c -O pinyin.zip https://codeload.github.com/medcl/elasticsearch-analysis-pinyin/zip/v5.0.1 \
 	&& unzip pinyin.zip \
 	&& rm pinyin.zip \
-	&& cd elasticsearch-analysis-pinyin-1.8.0 \
+	&& cd elasticsearch-analysis-pinyin-5.0.1 \
 	&& mvn clean \
 	&& mvn compile \
 	&& mvn package \
   	&& mkdir /usr/share/elasticsearch/plugins/pinyin \
 	&& cp target/releases/elasticsearch-analysis-pinyin-*.zip /usr/share/elasticsearch/plugins/pinyin \
 	&& cd /usr/share/elasticsearch/plugins \
-	&& rm -rf elasticsearch-analysis-pinyin-1.8.0 \
+	&& rm -rf elasticsearch-analysis-pinyin-5.0.1 \
   	&& cd /usr/share/elasticsearch/plugins/pinyin \
 	&& unzip elasticsearch-analysis-pinyin-*.zip \
 	&& rm elasticsearch-analysis-pinyin-*.zip

@@ -12,8 +12,9 @@ fi
 if [ "$1" = 'elasticsearch' -a "$(id -u)" = '0' ]; then
 	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
 	chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
-	chown elasticsearch:elasticsearch /usr/share/elasticsearch/config/logging.yml
-	chmod 666 /usr/share/elasticsearch/config/logging.yml
+	chmod -R 666 /usr/share/elasticsearch/data
+	chown elasticsearch:elasticsearch /usr/share/elasticsearch/config/log4j2.properties
+	chmod 666 /usr/share/elasticsearch/config/log4j2.properties
 	chown elasticsearch:elasticsearch /usr/share/elasticsearch/config/elasticsearch.yml
 	chmod 666 /usr/share/elasticsearch/config/elasticsearch.yml
 	set -- gosu elasticsearch "$@"
